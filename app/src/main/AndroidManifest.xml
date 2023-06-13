@@ -22,6 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.tests.LogIn" />
+        <activity android:name="com.example.tests.SignUp" />
+        <activity android:name="com.example.tests.Profile" />
+        <activity android:name="com.example.tests.AddRequest" />
+        <activity android:name="com.example.tests.Chat" />
+        <activity android:name="com.example.tests.AllRequests" />
+        <activity android:name="com.example.tests.MyRequests" />
     </application>
 
 </manifest>

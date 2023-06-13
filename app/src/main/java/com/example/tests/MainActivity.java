@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent1 = new Intent(this, LogIn.class);
+        Intent intent2 = new Intent(this, SignUp.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -27,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(intent1);
+            }
+        });
+
+        binding.button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intent2);
             }
         });
 
