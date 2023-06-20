@@ -28,6 +28,7 @@
         <activity android:name="com.example.tests.Chat" />
         <activity android:name="com.example.tests.AllRequests" />
         <activity android:name="com.example.tests.MyRequests" />
+        <activity android:name="com.example.tests.EditProfile" />
     </application>
 
 </manifest>
