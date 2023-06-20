@@ -33,13 +33,14 @@ public class SignUp extends AppCompatActivity {
                 final String editPassword = binding.editTextTextPassword5.getText().toString();
                 final String editPassword2 = binding.editTextTextPassword3.getText().toString();
 
+                userRepository=UserRepository.getInstance();
+
                 if(!editName.isEmpty() && !editEmail.isEmpty() && !editPassword.isEmpty() && !editPassword2.isEmpty())
                 {
                     if(userRepository.find(editEmail)==null)
                     {
                         if(editPassword.equals(editPassword2))
                         {
-                            userRepository=UserRepository.getInstance();
                             User newUser=new User(editName, editEmail, editPassword);
                             userRepository.save(newUser);
                             startActivity(intent);
@@ -48,6 +49,9 @@ public class SignUp extends AppCompatActivity {
                         {
                             Toast.makeText(SignUp.this, "Passwords must be identical", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                    else {
+                        Toast.makeText(SignUp.this, "Please choose another Email", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
