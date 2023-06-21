@@ -12,6 +12,9 @@ import com.example.tests.databinding.AddrequestBinding;
 public class AddRequest extends AppCompatActivity {
 
     private AddrequestBinding binding;
+    UserRepository userRepository =new UserRepository();
+    RequestRepository requestRepository=new RequestRepository();
+    User user=new User();
 
 
 
@@ -27,6 +30,34 @@ public class AddRequest extends AppCompatActivity {
 
         binding = AddrequestBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String editCourse = binding.editTextCourse.getText().toString();
+                final String editModul = binding.editTextModul.getText().toString();
+                final String editProf = binding.editTextProf.getText().toString();
+                final String editBlock = binding.editTextBlock.getText().toString();
+
+                userRepository=UserRepository.getInstance();
+                requestRepository=RequestRepository.getInstance();
+
+                if(!editCourse.isEmpty() && !editModul.isEmpty() && !editProf.isEmpty() && !editBlock.isEmpty())
+                {
+                    user=userRepository.getActiveUser();
+                    Request newRequest=new Request(requestRepository.getId(), user, editCourse, editModul, editProf, editBlock);
+                    requestRepository.save(newRequest);
+                    Toast.makeText(AddRequest.this, "Your request has been successfully added", Toast.LENGTH_SHORT).show();
+                    startActivity(intent1);
+                }
+                else
+                {
+                    Toast.makeText(AddRequest.this, "Please Enter All Informations", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
         binding.buttonAll2.setOnClickListener(new View.OnClickListener() {

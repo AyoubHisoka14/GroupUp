@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/studiengang_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="67dp"
+            android:clickable="false"
+            android:editable="false"
+            android:hint="Studiengang"
+            android:inputType="none"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/modul_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="147dp"
+            android:clickable="false"
+            android:editable="false"
+            android:hint="Modul"
+            android:inputType="none"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/prof_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="230dp"
+            android:clickable="false"
+            android:editable="false"
+            android:hint="Professor"
+            android:inputType="none"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/block_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="309dp"
+            android:clickable="false"
+            android:editable="false"
+            android:hint="Block"
+            android:inputType="none"
+            android:textSize="20dp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

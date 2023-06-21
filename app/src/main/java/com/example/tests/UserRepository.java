@@ -34,6 +34,18 @@ public class UserRepository {
         return null;
     }
 
+    public User findByName(String name)
+    {
+        for (Map.Entry<String, User> entry : ownersByEmail.entrySet()) {
+            User user = entry.getValue();
+
+            if (user.name.equals(name)) {
+                return user; // Found the user with the matching email
+            }
+        }
+        return null;
+    }
+
     public User getActiveUser() {
         for (Map.Entry<String, User> entry : ownersByEmail.entrySet()) {
             User user = entry.getValue();
