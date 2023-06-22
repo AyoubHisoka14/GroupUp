@@ -21,6 +21,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(this, Profile.class);
+        Intent intent2 = new Intent(this, MainActivity.class);
 
         binding= SignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -62,6 +63,13 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        binding.backSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intent2);
+            }
+        });
 
 
 

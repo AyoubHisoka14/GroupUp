@@ -1,16 +1,16 @@
 package com.example.tests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserRepository {
 
     private static UserRepository instance; // Static instance variable
-    private Map<String, User> ownersByEmail;
+    private List<User> allUsers=new ArrayList<>();
 
-    UserRepository() {
-        ownersByEmail = new HashMap<>();
-    }
+
 
     public static UserRepository getInstance() {
         if (instance == null) {
@@ -20,12 +20,11 @@ public class UserRepository {
     }
 
     public void save(User user) {
-        ownersByEmail.put(user.email, user);
+        allUsers.add(user);
     }
 
     public User find(String email) {
-        for (Map.Entry<String, User> entry : ownersByEmail.entrySet()) {
-            User user = entry.getValue();
+        for (User user : allUsers) {
 
             if (user.email.equals(email)) {
                 return user; // Found the user with the matching email
@@ -36,22 +35,18 @@ public class UserRepository {
 
     public User findByName(String name)
     {
-        for (Map.Entry<String, User> entry : ownersByEmail.entrySet()) {
-            User user = entry.getValue();
-
+        for (User user : allUsers) {
             if (user.name.equals(name)) {
-                return user; // Found the user with the matching email
+                return user;
             }
         }
         return null;
     }
 
     public User getActiveUser() {
-        for (Map.Entry<String, User> entry : ownersByEmail.entrySet()) {
-            User user = entry.getValue();
-
+        for (User user : allUsers) {
             if (user.isActive) {
-                return user; // Found the user with the matching email
+                return user;
             }
         }
         return null;

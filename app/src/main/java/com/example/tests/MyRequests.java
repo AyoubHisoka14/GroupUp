@@ -2,9 +2,11 @@ package com.example.tests;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +46,8 @@ public class MyRequests extends AppCompatActivity {
         requestRepository=RequestRepository.getInstance();
         userRepository=UserRepository.getInstance();
 
+        notificationsIcon();
+
         layout = binding.container2;
 
         user=userRepository.getActiveUser();
@@ -82,12 +86,22 @@ public class MyRequests extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
+        binding.notif6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                user=userRepository.getActiveUser();
+                notifications(user);
+            }
+        });
 
 
     }
 
     private void addRequests(String name) {
         final View view = getLayoutInflater().inflate(R.layout.newrequests, null);
+        Intent intent1 = new Intent(this, Chat.class);
+        Intent intent2 = new Intent(this, MyRequests.class);
 
         //@SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nameView = view.findViewById(R.id.namename1);
         TextView nameView = view.findViewById(R.id.name_re);
@@ -96,13 +110,42 @@ public class MyRequests extends AppCompatActivity {
 
         Button acceptButton = view.findViewById(R.id.accept);
         Button profileButton = view.findViewById(R.id.profile_re);
+        Button deleteButton = view.findViewById(R.id.delete);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView nameView = view.findViewById(R.id.name_re);
                 String nameText = nameView.getText().toString();
                 ProfileDialog(nameText);
-                //Toast.makeText(AllRequests.this, nameText, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TextView nameView = view.findViewById(R.id.name_re);
+                String nameText = nameView.getText().toString();
+
+                user=userRepository.getActiveUser();
+                User user2 = userRepository.findByName(nameText);
+
+                user.newPartner(user2);
+                user2.newPartner(user);
+                startActivity(intent1);
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView nameView = view.findViewById(R.id.name_re);
+                String nameText = nameView.getText().toString();
+                User user1=userRepository.findByName(nameText);
+                user=userRepository.getActiveUser();
+                user.deleteRequest(user1);
+                startActivity(intent2);
+
             }
         });
 
@@ -143,5 +186,46 @@ public class MyRequests extends AppCompatActivity {
 
         dialog = builder.create();
         dialog.show();
+    }
+    private void notificationsIcon() {
+        User newUser=userRepository.getActiveUser();
+
+        if(newUser.newNotification.size()>0)
+        {
+            ImageButton myButton = findViewById(R.id.ButtonNotification);
+            ColorStateList colorStateList = ColorStateList.valueOf(getResources().getColor(R.color.red));
+            myButton.setBackgroundTintList(colorStateList);
+        }
+    }
+    private void notifications(User user)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.notifications, null);
+        LinearLayout layoutNotification = dialogView.findViewById(R.id.container3);
+        Intent intent1 = new Intent(this, MyRequests.class);
+
+        builder.setView(dialogView);
+        builder.setTitle("Notifications")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        User newUser=userRepository.getActiveUser();
+                        user.deleteNotifications();
+                        startActivity(intent1);
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        for (String notification : user.newNotification) {
+            View notificationView = getLayoutInflater().inflate(R.layout.notification, null);
+            TextView nameView = notificationView.findViewById(R.id.notificationText);
+            nameView.setText(notification);
+            layoutNotification.addView(notificationView);
+        }
+
+
     }
 }

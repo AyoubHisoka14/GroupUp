@@ -3,10 +3,12 @@ package com.example.tests;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tests.databinding.AllrequestsBinding;
 import com.example.tests.databinding.RequestBinding;
+import com.example.tests.databinding.NotificationsBinding;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,12 +27,14 @@ public class AllRequests extends AppCompatActivity {
     private AllrequestsBinding binding;
     private RequestBinding requestBinding;
 
+    private NotificationsBinding notificationsBinding;
+
     UserRepository userRepository =new UserRepository();
     RequestRepository requestRepository=new RequestRepository();
     User user=new User();
 
 
-    LinearLayout layout;
+    LinearLayout layout, layout_Notification;
     AlertDialog dialog;
 
 
@@ -44,6 +49,7 @@ public class AllRequests extends AppCompatActivity {
         //Intent intent5 = new Intent(this, AllRequests.class);
 
         binding = AllrequestsBinding.inflate(getLayoutInflater());
+        notificationsBinding=NotificationsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         requestBinding = RequestBinding.inflate(getLayoutInflater());
@@ -51,19 +57,20 @@ public class AllRequests extends AppCompatActivity {
         userRepository=UserRepository.getInstance();
 
         layout = binding.container;
+        layout_Notification=notificationsBinding.container3;
         user=userRepository.getActiveUser();
+
+        notificationsIcon();
 
         List<Request> allRequests=requestRepository.getAllRequests();
         for(Request request : allRequests)
         {
-            if(user.checkSentRequest(request))
+            if(user.checkSentRequest(request) && user.checkPartner(request))
             {
                 addRequests(request.user.name, request.id);
             }
 
         }
-        //for(int i=0;i<20;i++){
-        //addRequests();}
 
         binding.buttonAdd4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +101,27 @@ public class AllRequests extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
+        binding.ButtonNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                user=userRepository.getActiveUser();
+                notifications(user);
+            }
+        });
 
 
+    }
+
+    private void notificationsIcon() {
+        User newUser=userRepository.getActiveUser();
+
+        if(newUser.newNotification.size()>0)
+        {
+            ImageButton myButton = findViewById(R.id.ButtonNotification);
+            ColorStateList colorStateList = ColorStateList.valueOf(getResources().getColor(R.color.red));
+            myButton.setBackgroundTintList(colorStateList);
+        }
     }
 
     private void addRequests(String name, Integer id) {
@@ -233,6 +259,37 @@ public class AllRequests extends AppCompatActivity {
             Intent intent5 = new Intent(this, AllRequests.class);
             startActivity(intent5);
         }
+    }
+
+    private void notifications(User user)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.notifications, null);
+        LinearLayout layoutNotification = dialogView.findViewById(R.id.container3);
+        Intent intent1 = new Intent(this, AllRequests.class);
+
+        builder.setView(dialogView);
+        builder.setTitle("Notifications")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        User newUser=userRepository.getActiveUser();
+                        user.deleteNotifications();
+                        startActivity(intent1);
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        for (String notification : user.newNotification) {
+            View notificationView = getLayoutInflater().inflate(R.layout.notification, null);
+            TextView nameView = notificationView.findViewById(R.id.notificationText);
+            nameView.setText(notification);
+            layoutNotification.addView(notificationView);
+        }
+
+
     }
 }
 

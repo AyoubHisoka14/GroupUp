@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class RequestRepository {
     private static RequestRepository instance; // Static instance variable
-    private List<Request> requestByUser;
+    private List<Request> requestByUser=new ArrayList<>();
     static Integer counter=0;
 
 
@@ -22,14 +22,8 @@ public class RequestRepository {
     }
 
     public void save(Request request) {
-
-        if (requestByUser == null) {
-            requestByUser = new ArrayList<>();
-        }
         requestByUser.add(request);
     }
-
-
 
     public List<Request> getAllRequests() {
         return requestByUser;

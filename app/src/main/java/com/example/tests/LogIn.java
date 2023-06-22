@@ -22,6 +22,7 @@ public class LogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(this, Profile.class);
+        Intent intent2 = new Intent(this, MainActivity.class);
 
 
 
@@ -37,21 +38,37 @@ public class LogIn extends AppCompatActivity {
                 if (!editEmail.isEmpty() && !editPassword.isEmpty())
                 {
                     userRepository=UserRepository.getInstance();
-                    user=userRepository.find(editEmail);
-                    if(user.password.equals(editPassword))
-                    {
-                        user.isActive=true;
-                        startActivity(intent);
-                    }
-                    else
+
+                    if(userRepository.find(editEmail)==null)
                     {
                         Toast.makeText(LogIn.this, "Email or Password are false", Toast.LENGTH_SHORT).show();
+                    }
+                   else
+                    {
+                        user=userRepository.find(editEmail);
+                        if(user.password.equals(editPassword))
+                        {
+                            user.isActive=true;
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Toast.makeText(LogIn.this, "Email or Password are false", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 } else {
 
                     Toast.makeText(LogIn.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        binding.backLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(intent2);
             }
         });
     }
