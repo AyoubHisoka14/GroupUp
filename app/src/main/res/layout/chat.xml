@@ -35,7 +35,7 @@
         android:id="@+id/notif3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#ED3B3B"
+        android:backgroundTint="#D5D6D6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"

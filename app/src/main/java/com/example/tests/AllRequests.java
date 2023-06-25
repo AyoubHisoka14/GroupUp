@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -118,10 +121,34 @@ public class AllRequests extends AppCompatActivity {
         });
 
         searchView=findViewById(R.id.searchView1);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    binding.buttonAdd4.setVisibility(View.GONE);
+                    binding.buttonProfile4.setVisibility(View.GONE);
+                    binding.buttonAll4.setVisibility(View.GONE);
+                    binding.buttonMyrequests4.setVisibility(View.GONE);
+                    binding.buttonChat4.setVisibility(View.GONE);
+                }
+                else {
+                    binding.buttonAdd4.setVisibility(View.VISIBLE);
+                    binding.buttonProfile4.setVisibility(View.VISIBLE);
+                    binding.buttonAll4.setVisibility(View.VISIBLE);
+                    binding.buttonMyrequests4.setVisibility(View.VISIBLE);
+                    binding.buttonChat4.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                //Toast.makeText(AllRequests.this, "Search query submitted: " + s, Toast.LENGTH_SHORT).show();
+                binding.buttonAdd4.setVisibility(View.VISIBLE);
+                binding.buttonProfile4.setVisibility(View.VISIBLE);
+                binding.buttonAll4.setVisibility(View.VISIBLE);
+                binding.buttonMyrequests4.setVisibility(View.VISIBLE);
+                binding.buttonChat4.setVisibility(View.VISIBLE);
                 return false;
             }
 
@@ -148,6 +175,10 @@ public class AllRequests extends AppCompatActivity {
 
     }
 
+    private boolean isKeyboardVisible() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        return imm.isAcceptingText();
+    }
     private void notificationsIcon() {
         User newUser=userRepository.getActiveUser();
 
