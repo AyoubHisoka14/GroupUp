@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tests.databinding.AllrequestsBinding;
 import com.example.tests.databinding.RequestBinding;
@@ -33,6 +35,9 @@ public class AllRequests extends AppCompatActivity {
     RequestRepository requestRepository=new RequestRepository();
     User user=new User();
 
+    SearchView searchView;
+    //RecyclerView recyclerView;
+
 
     LinearLayout layout, layout_Notification;
     AlertDialog dialog;
@@ -47,6 +52,8 @@ public class AllRequests extends AppCompatActivity {
         Intent intent3 = new Intent(this, MyRequests.class);
         Intent intent4 = new Intent(this, Chat.class);
         //Intent intent5 = new Intent(this, AllRequests.class);
+
+
 
         binding = AllrequestsBinding.inflate(getLayoutInflater());
         notificationsBinding=NotificationsBinding.inflate(getLayoutInflater());
@@ -67,7 +74,7 @@ public class AllRequests extends AppCompatActivity {
         {
             if(user.checkSentRequest(request) && user.checkPartner(request))
             {
-                addRequests(request.user.name, request.id);
+                addRequests(request.user.name, request.id, request.modul);
             }
 
         }
@@ -110,6 +117,34 @@ public class AllRequests extends AppCompatActivity {
             }
         });
 
+        searchView=findViewById(R.id.searchView1);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                //Toast.makeText(AllRequests.this, "Search query submitted: " + s, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                //Toast.makeText(AllRequests.this, "Search query changed: " + s, Toast.LENGTH_SHORT).show();
+                layout.removeAllViews();
+
+                List<Request> allRequests=requestRepository.getAllRequests();
+                for(Request request : allRequests)
+                {
+                    if(user.checkSentRequest(request) && user.checkPartner(request))
+                    {
+                        if(request.modul.toUpperCase().contains(text.toUpperCase()))
+                        {
+                            addRequests(request.user.name, request.id, request.modul);
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
 
     }
 
@@ -124,7 +159,7 @@ public class AllRequests extends AppCompatActivity {
         }
     }
 
-    private void addRequests(String name, Integer id) {
+    private void addRequests(String name, Integer id, String modul) {
         final View view = getLayoutInflater().inflate(R.layout.request, null);
 
         //@SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nameView = view.findViewById(R.id.namename1);
@@ -133,6 +168,9 @@ public class AllRequests extends AppCompatActivity {
 
         TextView idView = view.findViewById(R.id.textViewId);
         idView.setText(id.toString());
+
+        TextView modulView = view.findViewById(R.id.modul_all);
+        modulView.setText(modul);
 
 
         Button addButton = view.findViewById(R.id.add);

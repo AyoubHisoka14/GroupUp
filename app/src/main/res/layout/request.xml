@@ -21,6 +21,18 @@
             android:textFontWeight="1000"
             android:textSize="20dp" />
 
+        <TextView
+            android:id="@+id/modul_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="54dp"
+            android:layout_marginRight="0dp"
+            android:text="Modul"
+            android:textColor="@android:color/holo_purple"
+            android:textFontWeight="1000"
+            android:textSize="20dp" />
+
         <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
@@ -62,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="25dp"
+            android:layout_marginEnd="137dp"
             android:text="TextView"
             android:visibility="invisible" />
     </RelativeLayout>

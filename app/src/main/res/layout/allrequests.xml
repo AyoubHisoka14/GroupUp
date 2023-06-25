@@ -94,7 +94,7 @@
         app:srcCompat="@drawable/baseline_group_add_24" />
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/searchView1"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginStart="32dp"
@@ -120,4 +120,5 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
