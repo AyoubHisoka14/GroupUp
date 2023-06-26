@@ -51,10 +51,10 @@ public class MyRequests extends AppCompatActivity {
         layout = binding.container2;
 
         user=userRepository.getActiveUser();
-        List<User> allRequests=user.myRequests;
-        for(User user : allRequests)
+        List<String> allRequests=user.myRequests;
+        for(String user : allRequests)
         {
-            addRequests(user.name);
+            addRequests(userRepository.find(user).name);
         }
 
         binding.buttonAdd5.setOnClickListener(new View.OnClickListener() {

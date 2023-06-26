@@ -8,7 +8,7 @@ import java.util.Map;
 public class UserRepository {
 
     private static UserRepository instance; // Static instance variable
-    private List<User> allUsers=new ArrayList<>();
+    public List<User> allUsers=new ArrayList<>();
 
 
 

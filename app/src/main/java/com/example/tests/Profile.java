@@ -2,6 +2,7 @@ package com.example.tests;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tests.databinding.ProfileBinding;
+import com.google.gson.Gson;
 
 public class Profile extends AppCompatActivity {
     private ProfileBinding binding;
@@ -52,6 +54,17 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 user=userRepository.getActiveUser();
                 user.isActive=false;
+
+                SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(userRepository.allUsers);
+                editor.putString("task list", json);
+                editor.apply();
+
                 startActivity(intent5);
             }
         });

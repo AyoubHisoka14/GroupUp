@@ -19,9 +19,9 @@ public class User {
     String berufsErfahrungen="";
     String lerntyp="";
 
-    List<User> myRequests=new ArrayList<>();
-    List<User> sentRequests=new ArrayList<>();
-    List<User> myPartners=new ArrayList<>();
+    List<String> myRequests=new ArrayList<>();
+    List<String> sentRequests=new ArrayList<>();
+    List<String> myPartners=new ArrayList<>();
     List<String> newNotification=new ArrayList<>();
 
 
@@ -38,19 +38,19 @@ public class User {
     public void addRequest(User user)
     {
         newNotification.add("New Request from "+user.name);
-        myRequests.add(user);
+        myRequests.add(user.email);
     }
 
     public void setSentRequests(User user)
     {
-        sentRequests.add(user);
+        sentRequests.add(user.email);
     }
 
     public Boolean checkSentRequest(Request request)
     {
-        for(User user : sentRequests)
+        for(String user : sentRequests)
         {
-            if(user.email.equals(request.user.email))
+            if(user.equals(request.user.email))
             {
                 return false;
             }
@@ -60,23 +60,23 @@ public class User {
 
     public void newPartner(User user)
     {
-        for(User user1 : myRequests)
+        for(String user1 : myRequests)
         {
-            if(user.email.equals(user1.email))
+            if(user.email.equals(user1))
             {
                 myRequests.remove(user1);
                 break;
             }
         }
         newNotification.add("New Partner: "+user.name);
-        myPartners.add(user);
+        myPartners.add(user.email);
     }
 
     public void deleteRequest(User user)
     {
-        for(User user1 : myRequests)
+        for(String user1 : myRequests)
         {
-            if(user1.email.equals(user.email))
+            if(user1.equals(user.email))
             {
                 myRequests.remove(user1);
                 break;
@@ -86,9 +86,9 @@ public class User {
 
     public Boolean checkPartner(Request request)
     {
-        for(User user : myPartners)
+        for(String user : myPartners)
         {
-            if(user.email.equals(request.user.email))
+            if(user.equals(request.user.email))
             {
                 return false;
             }

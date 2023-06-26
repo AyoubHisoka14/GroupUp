@@ -1,6 +1,7 @@
 package com.example.tests;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tests.databinding.SignupBinding;
+import com.google.gson.Gson;
 
 public class SignUp extends AppCompatActivity {
     private SignupBinding binding;
@@ -44,6 +46,17 @@ public class SignUp extends AppCompatActivity {
                         {
                             User newUser=new User(editName, editEmail, editPassword);
                             userRepository.save(newUser);
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+
+                            Gson gson = new Gson();
+                            String json = gson.toJson(userRepository.allUsers);
+                            editor.putString("task list", json);
+                            editor.apply();
+
                             startActivity(intent);
                         }
                         else
