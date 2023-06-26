@@ -40,7 +40,7 @@ public class AddRequest extends AppCompatActivity {
         userRepository=UserRepository.getInstance();
         requestRepository=RequestRepository.getInstance();
 
-        notificationsIcon();
+        //notificationsIcon();
 
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class AddRequest extends AppCompatActivity {
             public void onClick(View view) {
 
                 User user2=userRepository.getActiveUser();
-                notifications(user2);
+                //notifications(user2);
             }
         });
     }
@@ -116,7 +116,7 @@ public class AddRequest extends AppCompatActivity {
             myButton.setBackgroundTintList(colorStateList);
         }
     }
-    private void notifications(User user2)
+   /** private void notifications(User user2)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.notifications, null);
@@ -145,5 +145,5 @@ public class AddRequest extends AppCompatActivity {
         }
 
 
-    }
+    }**/
 }

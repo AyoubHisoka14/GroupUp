@@ -45,7 +45,7 @@ public class Profile extends AppCompatActivity {
         binding.editTextStudiengang.setText(user.studiengang);
         binding.editTextSemester.setText(user.semester);
 
-        notificationsIcon();
+        //notificationsIcon();
 
         binding.buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-       binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
+        binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

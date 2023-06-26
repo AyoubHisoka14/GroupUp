@@ -43,7 +43,7 @@ public class LogIn extends AppCompatActivity {
                     {
                         Toast.makeText(LogIn.this, "Email or Password are false", Toast.LENGTH_SHORT).show();
                     }
-                   else
+                    else
                     {
                         user=userRepository.find(editEmail);
                         if(user.password.equals(editPassword))

@@ -46,7 +46,7 @@ public class MyRequests extends AppCompatActivity {
         requestRepository=RequestRepository.getInstance();
         userRepository=UserRepository.getInstance();
 
-        notificationsIcon();
+        //notificationsIcon();
 
         layout = binding.container2;
 
@@ -129,7 +129,8 @@ public class MyRequests extends AppCompatActivity {
                 String nameText = nameView.getText().toString();
 
                 user=userRepository.getActiveUser();
-                User user2 = userRepository.findByName(nameText);
+                User user2=new User();
+                user2 = userRepository.findByName(nameText);
 
                 user.newPartner(user2);
                 user2.newPartner(user);
@@ -141,7 +142,8 @@ public class MyRequests extends AppCompatActivity {
             public void onClick(View v) {
                 TextView nameView = view.findViewById(R.id.name_re);
                 String nameText = nameView.getText().toString();
-                User user1=userRepository.findByName(nameText);
+                User user1=new User();
+                user1=userRepository.findByName(nameText);
                 user=userRepository.getActiveUser();
                 user.deleteRequest(user1);
                 startActivity(intent2);

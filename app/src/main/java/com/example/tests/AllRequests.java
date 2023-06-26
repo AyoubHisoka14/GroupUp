@@ -70,7 +70,7 @@ public class AllRequests extends AppCompatActivity {
         layout_Notification=notificationsBinding.container3;
         user=userRepository.getActiveUser();
 
-        notificationsIcon();
+        //notificationsIcon();
 
         List<Request> allRequests=requestRepository.getAllRequests();
         for(Request request : allRequests)
