@@ -22,6 +22,7 @@ public class MyRequests extends AppCompatActivity {
 
     UserRepository userRepository =new UserRepository();
     RequestRepository requestRepository=new RequestRepository();
+    ChatRepository chatRepository=new ChatRepository();
     User user=new User();
 
 
@@ -45,6 +46,7 @@ public class MyRequests extends AppCompatActivity {
 
         requestRepository=RequestRepository.getInstance();
         userRepository=UserRepository.getInstance();
+        chatRepository=ChatRepository.getInstance();
 
         //notificationsIcon();
 
@@ -135,6 +137,9 @@ public class MyRequests extends AppCompatActivity {
                 user.newPartner(user2);
                 user2.newPartner(user);
                 startActivity(intent1);
+
+                MyChat chat=new MyChat(user.email, user2.email);
+                chatRepository.newChat(chat);
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {

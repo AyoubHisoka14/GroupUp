@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,12 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tests.databinding.ChatBinding;
-import com.example.tests.databinding.MyrequestsBinding;
 
 public class Chat extends AppCompatActivity {
 
     private ChatBinding binding;
     UserRepository userRepository=new UserRepository();
+    ChatRepository chatRepository=new ChatRepository();
+
+    LinearLayout layout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,9 +34,19 @@ public class Chat extends AppCompatActivity {
         Intent intent4 = new Intent(this, MyRequests.class);
         //Intent intent5 = new Intent(this, Profile.class);
         userRepository=UserRepository.getInstance();
+        chatRepository=ChatRepository.getInstance();
 
         binding = ChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        layout = binding.containerChat;
+        User user =new User();
+        user=userRepository.getActiveUser();
+
+        for(String contact : user.myPartners)
+        {
+            addContact(contact);
+        }
 
         //notificationsIcon();
 
@@ -113,7 +126,31 @@ public class Chat extends AppCompatActivity {
             nameView.setText(notification);
             layoutNotification.addView(notificationView);
         }
+    }
+
+    private void addContact(String contact) {
+        final View view = getLayoutInflater().inflate(R.layout.contacts, null);
+        Intent intent1 = new Intent(this, TheChat.class);
+
+        //@SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView nameView = view.findViewById(R.id.namename1);
+        TextView nameView = view.findViewById(R.id.contactName2);
+        nameView.setText(userRepository.find(contact).name);
 
 
+        Button openButton = view.findViewById(R.id.openChat);
+
+        openButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView nameView = view.findViewById(R.id.contactName2);
+                String nameText = nameView.getText().toString();
+                chatRepository.secondUser=nameText;
+                startActivity(intent1);
+            }
+        });
+
+
+
+        layout.addView(view);
     }
 }

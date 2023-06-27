@@ -29,6 +29,7 @@
         <activity android:name="com.example.tests.AllRequests" />
         <activity android:name="com.example.tests.MyRequests" />
         <activity android:name="com.example.tests.EditProfile" />
+        <activity android:name="com.example.tests.TheChat" />
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.tests;
 
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.ListMultimap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +24,7 @@ public class ChatRepository {
         allChats.add(chat);
     }
 
-    public Map<String, String> getChat(String user1, String user2) {
+    public ListMultimap<String, String> getChat(String user1, String user2) {
         for (MyChat chat : allChats) {
             if ((chat.user1.equals(user1) || chat.user1.equals(user2)) && (chat.user2.equals(user1) || chat.user2.equals(user2))) {
                 return chat.texts;
