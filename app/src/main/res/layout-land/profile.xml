@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#D5D6D6"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     android:clickable="false">
 
     <EditText
@@ -101,9 +102,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="120dp"
-        android:layout_height="52dp"
+        android:layout_width="237dp"
+        android:layout_height="32dp"
+        android:background="#6750A3"
         android:text="PROFILE"
+        android:textColor="#FFFFFF"
         android:textColorHighlight="#673AB7"
         android:textColorLink="#FFFFFF"
         android:textSize="24sp"

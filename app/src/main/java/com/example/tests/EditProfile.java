@@ -123,7 +123,7 @@ public class EditProfile extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         User newUser=userRepository.getActiveUser();
                         user.deleteNotifications();
-                        startActivity(intent1);
+                        //startActivity(intent1);
 
                     }
                 });

@@ -113,7 +113,7 @@ public class Chat extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         User newUser=userRepository.getActiveUser();
                         user.deleteNotifications();
-                        startActivity(intent1);
+                        //startActivity(intent1);
                     }
                 });
 
@@ -136,6 +136,16 @@ public class Chat extends AppCompatActivity {
         TextView nameView = view.findViewById(R.id.contactName2);
         nameView.setText(userRepository.find(contact).name);
 
+        User user =new User();
+        user=userRepository.getActiveUser();
+
+        User user2=new User();
+        user2=userRepository.findByName(contact);
+
+        //int newTexts=chatRepository.getNumberOfTexts(user.email, user2.email);
+
+        /**TextView notif = view.findViewById(R.id.numberoftexts);
+        notif.setText(String.valueOf(newTexts));**/
 
         Button openButton = view.findViewById(R.id.openChat);
 

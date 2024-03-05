@@ -2,6 +2,7 @@ package com.example.tests;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tests.databinding.MyrequestsBinding;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -140,6 +142,16 @@ public class MyRequests extends AppCompatActivity {
 
                 MyChat chat=new MyChat(user.email, user2.email);
                 chatRepository.newChat(chat);
+
+                /**SharedPreferences sharedPreferences = getSharedPreferences("shared preferences2", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(chatRepository.allChats);
+                editor.putString("task list2", json);
+                editor.apply();**/
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +163,9 @@ public class MyRequests extends AppCompatActivity {
                 user1=userRepository.findByName(nameText);
                 user=userRepository.getActiveUser();
                 user.deleteRequest(user1);
-                startActivity(intent2);
+
+                getReason(user1.name, user.name);
+                //startActivity(intent2);
 
             }
         });
@@ -218,7 +232,7 @@ public class MyRequests extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         User newUser=userRepository.getActiveUser();
                         user.deleteNotifications();
-                        startActivity(intent1);
+                        //startActivity(intent1);
 
                     }
                 });
@@ -234,5 +248,35 @@ public class MyRequests extends AppCompatActivity {
         }
 
 
+    }
+    private void getReason(String name, String name2)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.reason, null);
+        Intent intent2 = new Intent(this, MyRequests.class);
+
+        TextView reason = view.findViewById(R.id.reason);
+
+        builder.setView(view);
+        builder.setTitle("Reason of Deleting")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        User user=new User();
+                        user=userRepository.findByName(name);
+                        user.addNotification(reason.getText().toString(), name2);
+                        startActivity(intent2);
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

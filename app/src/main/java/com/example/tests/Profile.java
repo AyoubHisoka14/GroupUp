@@ -140,7 +140,10 @@ public class Profile extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         User newUser=userRepository.getActiveUser();
                         user.deleteNotifications();
-                        startActivity(intent1);
+                        //startActivity(intent1);
+                        //ImageButton myButton = findViewById(R.id.ButtonNotification);
+                        //ColorStateList colorStateList = ColorStateList.valueOf(getResources().getColor(R.color.grey));
+                        //myButton.setBackgroundTintList(colorStateList);
 
                     }
                 });

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,8 +16,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="46dp"
             android:clickable="false"
-            android:inputType="none"
             android:hint="Name"
+            android:inputType="none"
             android:textSize="20dp" />
 
         <TextView
@@ -27,7 +28,7 @@
             android:layout_marginTop="125dp"
             android:clickable="false"
             android:editable="false"
-            android:hint="Geburtsdatum"
+            android:hint="Birthday"
             android:inputType="none"
             android:textSize="20dp" />
 
@@ -39,7 +40,7 @@
             android:layout_marginTop="205dp"
             android:clickable="false"
             android:editable="false"
-            android:hint="Wohnort"
+            android:hint="City"
             android:inputType="none"
             android:textSize="20dp" />
 
@@ -51,7 +52,7 @@
             android:layout_marginTop="290dp"
             android:clickable="false"
             android:editable="false"
-            android:hint="Hochschule"
+            android:hint="University"
             android:inputType="none"
             android:textSize="20dp" />
 
@@ -63,7 +64,7 @@
             android:layout_marginTop="374dp"
             android:clickable="false"
             android:editable="false"
-            android:hint="Studiengang"
+            android:hint="Course"
             android:inputType="none"
             android:textSize="20dp" />
 

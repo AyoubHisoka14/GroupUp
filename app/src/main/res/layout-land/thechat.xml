@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <ImageButton
         android:id="@+id/backChat"
@@ -20,9 +21,11 @@
 
     <TextView
         android:id="@+id/textViewContact"
-        android:layout_width="256dp"
-        android:layout_height="56dp"
+        android:layout_width="262dp"
+        android:layout_height="38dp"
+        android:background="#6750A3"
         android:text="TextView"
+        android:textColor="#FEFEFE"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +38,7 @@
 
         android:layout_width="651dp"
         android:layout_height="214dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

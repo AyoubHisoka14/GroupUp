@@ -11,6 +11,7 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
         android:layout_marginEnd="0dp"
+        android:background="#FFFFFF"
         android:padding="20dp">
 
 

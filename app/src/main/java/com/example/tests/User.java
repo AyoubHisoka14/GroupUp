@@ -101,5 +101,22 @@ public class User {
         newNotification.clear();
     }
 
+    public void addNotification(String reason, String name)
+    {
+        newNotification.add("Your Request to : "+name+ " has been denied. Reason: "+ reason);
+    }
+
+    public void addNotificationText( String name)
+    {
+        for(String notif: newNotification)
+        {
+            if(notif.equals("New Text from: "+name))
+            {
+                return;
+            }
+        }
+        newNotification.add("New Text from: "+name);
+    }
+
 
 }

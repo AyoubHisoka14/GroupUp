@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="194dp"
-        android:layout_height="53dp"
+        android:layout_width="287dp"
+        android:layout_height="38dp"
+        android:background="#6750A2"
         android:text="ALL REQUESTS"
+        android:textColor="#FEFEFE"
         android:textColorHighlight="#673AB7"
         android:textColorLink="#FFFFFF"
         android:textSize="24sp"

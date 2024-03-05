@@ -40,33 +40,49 @@ public class SignUp extends AppCompatActivity {
 
                 if(!editName.isEmpty() && !editEmail.isEmpty() && !editPassword.isEmpty() && !editPassword2.isEmpty())
                 {
-                    if(userRepository.find(editEmail)==null)
+                    if(editEmail.contains(" ") || !editEmail.contains("@") || !editEmail.endsWith(".com"))
                     {
-                        if(editPassword.equals(editPassword2))
-                        {
-                            User newUser=new User(editName, editEmail, editPassword);
-                            userRepository.save(newUser);
-
-                            SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.clear();
-                            editor.apply();
-
-                            Gson gson = new Gson();
-                            String json = gson.toJson(userRepository.allUsers);
-                            editor.putString("task list", json);
-                            editor.apply();
-
-                            startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(SignUp.this, "Passwords must be identical", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(SignUp.this, "Please Enter a Valid Email", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(SignUp.this, "Please choose another Email", Toast.LENGTH_SHORT).show();
+                        if(userRepository.find(editEmail)==null)
+                        {
+
+                            if(editPassword.equals(editPassword2))
+                            {
+                                if(editPassword.length()>=5)
+                                {
+                                    User newUser=new User(editName, editEmail, editPassword);
+                                    userRepository.save(newUser);
+
+                                    SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.clear();
+                                    editor.apply();
+
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(userRepository.allUsers);
+                                    editor.putString("task list", json);
+                                    editor.apply();
+
+                                    startActivity(intent);
+                                }
+                                else
+                                {
+                                    Toast.makeText(SignUp.this, "Please enter a valid Password", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(SignUp.this, "Passwords must be identical", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(SignUp.this, "Please choose another Email", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
+
                 }
                 else
                 {

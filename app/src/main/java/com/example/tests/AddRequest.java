@@ -52,11 +52,17 @@ public class AddRequest extends AppCompatActivity {
 
                 if(!editCourse.isEmpty() && !editModul.isEmpty() && !editProf.isEmpty() && !editBlock.isEmpty())
                 {
-                    user=userRepository.getActiveUser();
-                    Request newRequest=new Request(requestRepository.getId(), user, editCourse, editModul, editProf, editBlock);
-                    requestRepository.save(newRequest);
-                    Toast.makeText(AddRequest.this, "Your request has been successfully added", Toast.LENGTH_SHORT).show();
-                    startActivity(intent1);
+                    if(editCourse.length()<50 && editModul.length()<50 && editProf.length()<50 && editBlock.length()<50)
+                    {
+                        user=userRepository.getActiveUser();
+                        Request newRequest=new Request(requestRepository.getId(), user, editCourse, editModul, editProf, editBlock);
+                        requestRepository.save(newRequest);
+                        Toast.makeText(AddRequest.this, "Your request has been successfully added", Toast.LENGTH_SHORT).show();
+                        startActivity(intent1);
+                    }
+                    else {
+                        Toast.makeText(AddRequest.this, "The Informations are too long", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
@@ -101,7 +107,7 @@ public class AddRequest extends AppCompatActivity {
             public void onClick(View view) {
 
                 User user2=userRepository.getActiveUser();
-                //notifications(user2);
+                notifications(user2);
             }
         });
     }
@@ -116,7 +122,7 @@ public class AddRequest extends AppCompatActivity {
             myButton.setBackgroundTintList(colorStateList);
         }
     }
-   /** private void notifications(User user2)
+    private void notifications(User user2)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.notifications, null);
@@ -130,7 +136,7 @@ public class AddRequest extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         User newUser=userRepository.getActiveUser();
                         user.deleteNotifications();
-                        startActivity(intent1);
+                        //startActivity(intent1);
                     }
                 });
 
@@ -145,5 +151,5 @@ public class AddRequest extends AppCompatActivity {
         }
 
 
-    }**/
+    }
 }
